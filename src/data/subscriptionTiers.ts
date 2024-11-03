@@ -1,3 +1,5 @@
+export type TierNames = keyof typeof subscriptionTiers;
+
 export const subscriptionTiers = {
   Free: {
     name: "Free",
@@ -43,4 +45,3 @@ export const subscriptionTiersInOrder = [
   subscriptionTiers.Standard,
   subscriptionTiers.Premium,
 ] as const;
-
