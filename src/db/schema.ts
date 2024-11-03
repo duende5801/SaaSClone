@@ -1,10 +1,8 @@
 import { subscriptionTiers, TierNames } from "@/data/subscriptionTiers";
-import { table } from "console";
 import { relations } from "drizzle-orm";
 import {
   boolean,
   index,
-  integer,
   pgEnum,
   pgTable,
   primaryKey,
@@ -12,7 +10,6 @@ import {
   text,
   timestamp,
   uuid,
-  varchar,
 } from "drizzle-orm/pg-core";
 
 const createdAt = timestamp("created_at", { withTimezone: true })
