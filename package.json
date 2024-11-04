@@ -26,6 +26,7 @@
     "next": "15.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "svix": "^1.37.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
@@ -34,7 +35,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "drizzle-kit": "^0.26.2",
+    "drizzle-kit": "^0.27.1",
     "eslint": "^8",
     "eslint-config-next": "15.0.1",
     "postcss": "^8",
