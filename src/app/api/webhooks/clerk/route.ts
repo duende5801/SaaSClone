@@ -2,8 +2,6 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { env } from "@/data/server";
-import { db } from "@/db";
-import { UserSubscriptionTable } from "@/db/schema";
 import { createUserSubscription } from "@/server/db/subscription";
 import { deleteUser } from "@/server/db/users";
 
