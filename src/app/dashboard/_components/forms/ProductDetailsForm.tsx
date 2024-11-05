@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { createProduct, updateProduct } from "@/server/actions/products";
 import { useToast } from "@/hooks/use-toast";
-// import { RequiredLabelIcon } from "@/components/RequiredLabelIcon";
+import { RequiredLabelIcon } from "@/components/RequiredLabelIcon";
 import { productDetailsSchema } from "@/schemas/products";
 
 export function ProductDetailsForm({
@@ -70,7 +70,7 @@ export function ProductDetailsForm({
               <FormItem>
                 <FormLabel>
                   Product Name
-                  {/* <RequiredLabelIcon /> */}
+                  <RequiredLabelIcon />
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -86,7 +86,7 @@ export function ProductDetailsForm({
               <FormItem>
                 <FormLabel>
                   Enter your website URL
-                  {/* <RequiredLabelIcon /> */}
+                  <RequiredLabelIcon />
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />

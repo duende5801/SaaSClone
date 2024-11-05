@@ -1,6 +1,12 @@
+import { subscriptionTiers } from "@/data/subscriptionTiers";
 import { db } from "@/db";
 import { UserSubscriptionTable } from "@/db/schema";
-import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
+import {
+  CACHE_TAGS,
+  dbCache,
+  getUserTag,
+  revalidateDbCache,
+} from "@/lib/cache";
 
 export async function createUserSubscription(
   data: typeof UserSubscriptionTable.$inferInsert
@@ -16,7 +22,7 @@ export async function createUserSubscription(
       userId: UserSubscriptionTable.clerkUserId,
     });
 
-  if (newSubscription !== null) {
+  if (newSubscription != null) {
     revalidateDbCache({
       tag: CACHE_TAGS.subscription,
       id: newSubscription.id,
@@ -25,4 +31,25 @@ export async function createUserSubscription(
   }
 
   return newSubscription;
+}
+
+export async function getUserSubscription(userId: string) {
+  const cacheFn = dbCache(getUserSubscriptionInternal, {
+    tags: [getUserTag(userId, CACHE_TAGS.subscription)],
+  });
+
+  return cacheFn(userId);
+}
+export async function getUserSubscriptionTier(userId: string) {
+  const subscription = await getUserSubscription(userId);
+
+  if (subscription == null) throw new Error("User has no subscription");
+
+  return subscriptionTiers[subscription.tier];
+}
+
+async function getUserSubscriptionInternal(userId: string) {
+  return db.query.UserSubscriptionTable.findFirst({
+    where: ({ clerkUserId }, { eq }) => eq(clerkUserId, userId),
+  });
 }
