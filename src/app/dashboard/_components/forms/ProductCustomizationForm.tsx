@@ -72,16 +72,18 @@ export function ProductCustomizationForm({
 
   return (
     <>
-      <Banner
-        message={formValues.locationMessage}
-        mappings={{
-          country: "India",
-          coupon: "HALF-OFF",
-          discount: "50",
-        }}
-        customization={formValues}
-        canRemoveBranding={canRemoveBranding}
-      />
+      <div>
+        <Banner
+          message={formValues.locationMessage}
+          mappings={{
+            country: "India",
+            coupon: "HALF-OFF",
+            discount: "50",
+          }}
+          customization={formValues}
+          canRemoveBranding={canRemoveBranding}
+        />
+      </div>
       {!canCustomizeBanner && (
         <div className="mt-8">
           <NoPermissionCard />

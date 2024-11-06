@@ -15,15 +15,16 @@ import {
   updateProductCustomization as updateProductCustomizationDb,
 } from "@/server/db/products";
 import { redirect } from "next/navigation";
-import { canCustomizeBanner } from "../permissions";
+import { canCreateProduct, canCustomizeBanner } from "../permissions";
 
 export async function createProduct(
   unsafeData: z.infer<typeof productDetailsSchema>
 ): Promise<{ error: boolean; message: string } | undefined> {
   const { userId } = await auth();
   const { success, data } = productDetailsSchema.safeParse(unsafeData);
+  const canCreate = await canCreateProduct(userId);
 
-  if (!success || userId == null) {
+  if (!success || userId == null || !canCreate) {
     return {
       error: true,
       message: "There was an error createing your product",
@@ -128,16 +129,15 @@ export async function updateProductCustomization(
   const { userId } = await auth();
   const { success, data } = productCustomizationSchema.safeParse(unsafeData);
   const canCustomize = await canCustomizeBanner(userId);
-  const errorMessage = "There was an error updating your product";
 
   if (!success || userId == null || !canCustomize) {
     return {
       error: true,
-      message: errorMessage,
+      message: "There was an error updating your banner",
     };
   }
 
   await updateProductCustomizationDb(data, { productId: id, userId });
 
-//   return { error: success, message: success ? "Banner updated" : errorMessage };
+  return { error: false, message: "Banner updated" };
 }
