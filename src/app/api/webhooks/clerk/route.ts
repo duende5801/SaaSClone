@@ -2,8 +2,14 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { env } from "@/data/server";
-import { createUserSubscription } from "@/server/db/subscription";
+import {
+  createUserSubscription,
+  getUserSubscription,
+} from "@/server/db/subscription";
 import { deleteUser } from "@/server/db/users";
+import Stripe from "stripe";
+
+const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
 export async function POST(req: Request) {
   // Get the headers
@@ -52,7 +58,13 @@ export async function POST(req: Request) {
     }
 
     case "user.deleted": {
-      if (evt.data.id) {
+      if (evt.data.id != null) {
+        const userSubcription = await getUserSubscription(evt.data.id);
+        if (userSubcription?.stripeSubscriptionId != null)
+          await stripe.subscriptions.cancel(
+            userSubcription.stripeSubscriptionId
+          );
+
         await deleteUser(evt.data.id);
       }
     }

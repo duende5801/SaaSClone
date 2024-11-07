@@ -26,7 +26,7 @@ export async function getProducts(
   return cacheFn(userId, { limit });
 }
 
-export function getProduct({ id, userId }: { id: string; userId: string }) {
+export async function getProduct({ id, userId }: { id: string; userId: string }) {
   const cacheFn = dbCache(getProductInternal, {
     tags: [getIdTag(id, CACHE_TAGS.products)],
   });
@@ -34,7 +34,7 @@ export function getProduct({ id, userId }: { id: string; userId: string }) {
   return cacheFn({ id, userId });
 }
 
-export function getProductCount(userId: string) {
+export async function getProductCount(userId: string) {
   const cacheFn = dbCache(getProductCountInternal, {
     tags: [getUserTag(userId, CACHE_TAGS.products)],
   });
