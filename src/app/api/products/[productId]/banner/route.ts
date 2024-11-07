@@ -8,12 +8,14 @@ import { notFound } from "next/navigation";
 import { NextRequest } from "next/server";
 import { createElement } from "react";
 
+export const runtime = "edge";
+
 export async function GET(
   request: NextRequest,
   { params: { productId } }: { params: { productId: string } }
 ) {
   const headersMap = await headers();
-  const requestingUrl = headersMap.get("referer") || headersMap.get("orgin");
+  const requestingUrl = headersMap.get("referer") || headersMap.get("origin");
 
   if (requestingUrl == null) return notFound();
 

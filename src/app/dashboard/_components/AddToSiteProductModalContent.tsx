@@ -41,8 +41,7 @@ function getChildren(copyState: CopyState) {
 
 export function AddToSiteProductModalContent({ id }: { id: string }) {
   const [copyState, setCopyState] = useState<CopyState>("idle");
-  const code = `<script src="${env.NEXT_PUBLIC_SERVER_URL}/api/products/${id}/banner></script>`;
-
+  const code = `<script src="${env.NEXT_PUBLIC_SERVER_URL}/api/products/${id}/banner"></script>`;
   const Icon = getCopyIcon(copyState);
 
   return (
@@ -54,10 +53,8 @@ export function AddToSiteProductModalContent({ id }: { id: string }) {
           customers will start seeing PPP discounts!
         </DialogDescription>
       </DialogHeader>
-      <pre>
-        <code className="mb-4 overflow-x-auto p-4 bg-secondary rounded max-w-screen-xl text-secondary-foreground">
-          {code}
-        </code>
+      <pre className="mb-4 overflow-x-auto p-4 bg-secondary rounded max-w-screen-xl text-secondary-foreground">
+        <code>{code}</code>
       </pre>
       <div className="flex gap-2">
         <Button

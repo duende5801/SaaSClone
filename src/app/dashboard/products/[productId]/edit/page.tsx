@@ -118,7 +118,7 @@ export default async function EditProductPage({
       backButtonHref="/dashboard/products"
       pageTitle="Edit Product"
     >
-      <Tabs defaultValue="details">
+      <Tabs defaultValue={tab || "details"}>
         <TabsList className="bg-background/60">
           <TabsTrigger value="details">Details</TabsTrigger>
           <TabsTrigger value="country">Country</TabsTrigger>
